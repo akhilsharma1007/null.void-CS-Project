@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Confessions 🎓</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <h1>🎓 Campus Confessions</h1>
+        <div class="nav-links">
+            <button onclick="renderPosts('new')" id="btn-new" class="active">✨ New</button>
+            <button onclick="renderPosts('trending')" id="btn-trending">🔥 Trending</button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="post-box">
+            <textarea id="confessionInput" placeholder="Spill the tea... (No login required)"></textarea>
+            <div class="post-actions">
+                <span id="spamWarning" class="hidden">Take a breath! You've posted too much recently.</span>
+                <button id="submitBtn">Post Anonymously</button>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="feed">
+            <!-- Confessions will be injected here by JS -->
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
