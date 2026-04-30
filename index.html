@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAU Confessions | Campus Network 🎓</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-view">
+        <div class="login-card">
+            <h1>🎓 SAU Confessions</h1>
+            <p>Connect anonymously with your campus.</p>
+            
+            <div class="role-tabs">
+                <button id="tab-student" class="active">Student</button>
+                <button id="tab-mod">Moderator</button>
+            </div>
+
+            <div id="student-form">
+                <h3 id="studentFormTitle">Student Login</h3>
+                <input type="email" id="emailInput" placeholder="Enter @sau.in email">
+                <input type="password" id="studentPasswordInput" placeholder="Enter Password">
+                <button id="authBtnStudent">Log In</button>
+                <p id="auth-error-student" class="error-text"></p>
+                <div class="toggle-auth-msg">
+                    <span id="toggleText">New to SAU?</span> 
+                    <button id="toggleAuthMode">Create an account</button>
+                </div>
+            </div>
+
+            <div id="mod-form" class="hidden">
+                <h3 style="color: white; margin-bottom: 1rem; font-size: 1.1rem;">Moderator Access</h3>
+                <input type="email" id="modEmailInput" placeholder="Mod Email">
+                <input type="password" id="modPasswordInput" placeholder="Mod Password">
+                <button id="loginBtnMod">Enter Admin Panel</button>
+                <p id="login-error-mod" class="error-text">Invalid credentials.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SCREEN -->
+    <div id="app-view" class="hidden">
+        <nav>
+            <div class="nav-brand">
+                <h1>🎓 SAU Confessions</h1>
+                <span id="modBadge" class="hidden">MOD</span>
+            </div>
+            <button id="logoutBtn">Logout</button>
+        </nav>
+
+        <div class="app-container">
+            <aside class="sidebar">
+                <div class="channel-group">
+                    <h4>PUBLIC</h4>
+                    <button class="channel-btn active" data-channel="general">🌎 General Chat</button>
+                </div>
+
+                <div class="channel-group">
+                    <h4>DEPARTMENTS</h4>
+                    <button class="channel-btn locked" data-channel="CSE">💻 CSE</button>
+                    <button class="channel-btn locked" data-channel="IR">🌍 IR</button>
+                    <button class="channel-btn locked" data-channel="SOCIO">👥 SOCIO</button>
+                    <button class="channel-btn locked" data-channel="BS-MS">🧪 BS-MS</button>
+                </div>
+
+                <div class="channel-group">
+                    <h4>LEVEL OF STUDY</h4>
+                    <button class="channel-btn locked" data-channel="Bachelors">🎓 Bachelors</button>
+                    <button class="channel-btn locked" data-channel="Masters">📜 Masters</button>
+                    <button class="channel-btn locked" data-channel="Phd">🔬 Phd</button>
+                    <button class="channel-btn locked" data-channel="Post-doc">🏛️ Post-doc</button>
+                </div>
+            </aside>
+
+            <main class="feed-container">
+                <section class="post-box">
+                    <h2 id="current-channel-title">🌎 General Chat</h2>
+                    <textarea id="confessionInput" placeholder="What's on your mind?"></textarea>
+                    <div class="post-actions">
+                        <span id="spamWarning" class="hidden">Spam detected! Wait a bit.</span>
+                        <button id="submitBtn">Post Anonymously</button>
+                    </div>
+                </section>
+                
+                <div class="feed-tabs">
+                    <button id="btn-new" class="active">✨ New</button>
+                    <button id="btn-trending">🔥 Trending</button>
+                </div>
+
+                <section id="feed"></section>
+
+                <hr style="width:100%; border:0; border-top:1px solid #333; margin:2rem 0;">
+
+                <section class="post-card">
+                    <h3 style="color:var(--danger); margin-top:0;">⚠️ Submit Complaint</h3>
+                    <input id="complaintPostId" placeholder="Post ID (e.g. 171448...)" 
+                        style="width:100%; margin-bottom:10px; padding:12px; background:#121212; color:white; border:1px solid #333; border-radius:8px; box-sizing:border-box;">
+                    <textarea id="complaintText" placeholder="Describe the issue..."
+                        style="width:100%; padding:12px; background:#121212; color:white; border:1px solid #333; border-radius:8px; box-sizing:border-box; height:80px;"></textarea>
+                    <button onclick="submitComplaint()" 
+                        style="margin-top:10px; background:none; border:1px solid var(--danger); color:var(--danger); padding:8px 16px; border-radius:6px; cursor:pointer; font-weight:bold;">
+                        Submit Complaint
+                    </button>
+                </section>
+
+                <section id="moderatorComplaints" class="post-card hidden" style="margin-top:20px;">
+                    <h3 style="color:var(--accent);">📋 Complaints (Moderator Only)</h3>
+                    <div id="complaintList"></div>
+                </section>
+            </main>
+        </div>
+
+        <div id="join-modal" class="modal-overlay hidden">
+            <div class="modal-card">
+                <h2>Welcome to SAU!</h2>
+                <p>Pick your communities to start reading and posting.</p>
+                <div class="modal-input-group">
+                    <label>Your Department</label>
+                    <select id="select-dept">
+                        <option value="CSE">CSE</option>
+                        <option value="IR">IR</option>
+                        <option value="SOCIO">SOCIO</option>
+                        <option value="BS-MS">BS-MS</option>
+                    </select>
+                </div>
+                <div class="modal-input-group">
+                    <label>Your Study Level</label>
+                    <select id="select-level">
+                        <option value="Bachelors">Bachelors</option>
+                        <option value="Masters">Masters</option>
+                        <option value="Phd">Phd</option>
+                        <option value="Post-doc">Post-doc</option>
+                    </select>
+                </div>
+                <button id="confirm-join-btn">Join My Community</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
