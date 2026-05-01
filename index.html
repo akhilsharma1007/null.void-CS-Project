@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAU Confessions | Campus Network 🎓</title>
+    <title>null.void() | Campus Network</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <!-- LOGIN SCREEN -->
     <div id="login-view">
         <div class="login-card">
-            <h1>🎓 SAU Confessions</h1>
+            <h1 class="code-title">null.void()</h1>
             <p>Connect anonymously with your campus.</p>
             
             <div class="role-tabs">
@@ -26,17 +26,17 @@
                 <button id="authBtnStudent">Log In</button>
                 <p id="auth-error-student" class="error-text"></p>
                 <div class="toggle-auth-msg">
-                    <span id="toggleText">New to SAU?</span> 
+                    <span id="toggleText">New to the void?</span> 
                     <button id="toggleAuthMode">Create an account</button>
                 </div>
             </div>
 
             <div id="mod-form" class="hidden">
-                <h3 style="color: white; margin-bottom: 1rem; font-size: 1.1rem;">Moderator Access</h3>
-                <input type="email" id="modEmailInput" placeholder="Mod Email">
-                <input type="password" id="modPasswordInput" placeholder="Mod Password">
-                <button id="loginBtnMod">Enter Admin Panel</button>
-                <p id="login-error-mod" class="error-text">Invalid credentials.</p>
+                <h3 style="color: white; margin-bottom: 1rem; font-size: 1.1rem;">Root Access</h3>
+                <input type="email" id="modEmailInput" placeholder="Admin Email">
+                <input type="password" id="modPasswordInput" placeholder="Admin Password">
+                <button id="loginBtnMod">Execute Admin Panel</button>
+                <p id="login-error-mod" class="error-text">Access Denied.</p>
             </div>
         </div>
     </div>
@@ -45,10 +45,9 @@
     <div id="app-view" class="hidden">
         <nav>
             <div class="nav-brand">
-                <!-- Mobile Menu Button Added Here -->
                 <button id="mobileMenuBtn" class="mobile-only">☰</button>
-                <h1>🎓 SAU Confessions</h1>
-                <span id="modBadge" class="hidden">MOD</span>
+                <h1 class="code-title">null.void()</h1>
+                <span id="modBadge" class="hidden">ROOT</span>
             </div>
             <button id="logoutBtn">Logout</button>
         </nav>
@@ -57,7 +56,7 @@
             <aside class="sidebar">
                 <div class="channel-group">
                     <h4>PUBLIC</h4>
-                    <button class="channel-btn active" data-channel="general">🌎 General Chat</button>
+                    <button class="channel-btn active" data-channel="general">🌎 Global Feed</button>
                 </div>
 
                 <div class="channel-group">
@@ -79,16 +78,16 @@
 
             <main class="feed-container">
                 <section class="post-box">
-                    <h2 id="current-channel-title">🌎 General Chat</h2>
-                    <textarea id="confessionInput" placeholder="What's on your mind?"></textarea>
+                    <h2 id="current-channel-title">🌎 Global Feed</h2>
+                    <textarea id="confessionInput" placeholder="Scream into the void..."></textarea>
                     <div class="post-actions">
-                        <span id="spamWarning" class="hidden">Spam detected! Wait a bit.</span>
-                        <button id="submitBtn">Post Anonymously</button>
+                        <span id="spamWarning" class="hidden">Spam detected! Rate limit exceeded.</span>
+                        <button id="submitBtn">Execute Post</button>
                     </div>
                 </section>
                 
                 <div class="feed-tabs">
-                    <button id="btn-new" class="active">✨ New</button>
+                    <button id="btn-new" class="active">✨ Latest</button>
                     <button id="btn-trending">🔥 Trending</button>
                 </div>
 
@@ -97,19 +96,19 @@
                 <hr style="width:100%; border:0; border-top:1px solid #333; margin:2rem 0;">
 
                 <section class="post-card">
-                    <h3 style="color:var(--danger); margin-top:0;">⚠️ Submit Complaint</h3>
-                    <input id="complaintPostId" placeholder="Post ID (e.g. 171448...)" 
+                    <h3 style="color:var(--danger); margin-top:0;">⚠️ Report Anomaly (Complaint)</h3>
+                    <input id="complaintPostId" placeholder="Target Post ID (e.g. 171448...)" 
                         style="width:100%; margin-bottom:10px; padding:12px; background:#121212; color:white; border:1px solid #333; border-radius:8px; box-sizing:border-box;">
-                    <textarea id="complaintText" placeholder="Describe the issue..."
+                    <textarea id="complaintText" placeholder="Describe the violation..."
                         style="width:100%; padding:12px; background:#121212; color:white; border:1px solid #333; border-radius:8px; box-sizing:border-box; height:80px;"></textarea>
                     <button onclick="submitComplaint()" 
                         style="margin-top:10px; background:none; border:1px solid var(--danger); color:var(--danger); padding:8px 16px; border-radius:6px; cursor:pointer; font-weight:bold;">
-                        Submit Complaint
+                        Submit Report
                     </button>
                 </section>
 
                 <section id="moderatorComplaints" class="post-card hidden" style="margin-top:20px;">
-                    <h3 style="color:var(--accent);">📋 Complaints (Moderator Only)</h3>
+                    <h3 style="color:var(--accent);">📋 System Logs (Admin Only)</h3>
                     <div id="complaintList"></div>
                 </section>
             </main>
@@ -117,10 +116,10 @@
 
         <div id="join-modal" class="modal-overlay hidden">
             <div class="modal-card">
-                <h2>Welcome to SAU!</h2>
-                <p>Pick your communities to start reading and posting.</p>
+                <h2 class="code-title">Initialize Profile</h2>
+                <p>Define your parameters to unlock the network.</p>
                 <div class="modal-input-group">
-                    <label>Your Department</label>
+                    <label>Department Variable</label>
                     <select id="select-dept">
                         <option value="CSE">CSE</option>
                         <option value="IR">IR</option>
@@ -129,7 +128,7 @@
                     </select>
                 </div>
                 <div class="modal-input-group">
-                    <label>Your Study Level</label>
+                    <label>Level Variable</label>
                     <select id="select-level">
                         <option value="Bachelors">Bachelors</option>
                         <option value="Masters">Masters</option>
@@ -137,7 +136,7 @@
                         <option value="Post-doc">Post-doc</option>
                     </select>
                 </div>
-                <button id="confirm-join-btn">Join My Community</button>
+                <button id="confirm-join-btn">Connect</button>
             </div>
         </div>
     </div>
