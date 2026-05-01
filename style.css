@@ -1,13 +1,13 @@
 :root {
     --bg-color: #0c0c0c;
-    --sidebar-bg: #141414;
-    --card-bg: #1e1e1e;
+    --sidebar-bg: #111111;
+    --card-bg: #1a1a1a;
     --text-primary: #ffffff;
     --text-secondary: #a0a0a0;
-    --accent: #bb86fc; 
-    --accent-hover: #9965f4;
-    --danger: #cf6679;
-    --glass: rgba(30, 30, 30, 0.55);
+    --accent: #00e5ff; /* NEON CYBER-CYAN */
+    --accent-hover: #00b3cc;
+    --danger: #ff0055;
+    --glass: rgba(20, 20, 20, 0.65);
 }
 
 /* ==========================================
@@ -22,11 +22,14 @@ body {
     overflow: hidden; 
 }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #333 var(--bg-color);
+/* Specific styling for the app name to look like code */
+.code-title {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: -1px;
+    font-weight: 700;
 }
 
+* { scrollbar-width: thin; scrollbar-color: #333 var(--bg-color); }
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-color); }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; border: 2px solid var(--bg-color); }
@@ -36,51 +39,34 @@ body {
    2. LOGIN SCREEN (GLASSMORPHISM)
    ========================================== */
 #login-view { 
-    height: 100vh; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    background: linear-gradient(rgba(12, 12, 12, 0.7), rgba(12, 12, 12, 0.8)), 
+    height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(rgba(12, 12, 12, 0.75), rgba(12, 12, 12, 0.85)), 
                 url('sau-campus-new.jpeg');
-    background-size: cover; 
-    background-position: center;
-    position: relative;
-    z-index: 10;
+    background-size: cover; background-position: center; position: relative; z-index: 10;
 }
 
 .login-card { 
-    background: var(--glass); 
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 3rem; 
-    border-radius: 24px; 
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    width: 100%; 
-    max-width: 420px; 
-    text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    padding: 3rem; border-radius: 20px; border: 1px solid rgba(0, 229, 255, 0.15); /* Slight cyan tint on border */
+    width: 100%; max-width: 420px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
     animation: slideUp 0.7s ease-out;
 }
 
-.login-card h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--accent); }
+.login-card h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); }
 .login-card p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem; }
 
-.role-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 12px; }
-.role-tabs button { 
-    flex: 1; padding: 0.8rem; border: none; background: transparent; color: var(--text-secondary); border-radius: 8px; cursor: pointer; transition: 0.3s;
-}
-.role-tabs button.active { background: var(--accent); color: black; font-weight: bold; box-shadow: 0 4px 15px rgba(187, 134, 252, 0.3); }
+.role-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; background: rgba(0,0,0,0.4); padding: 5px; border-radius: 10px; }
+.role-tabs button { flex: 1; padding: 0.8rem; border: none; background: transparent; color: var(--text-secondary); border-radius: 6px; cursor: pointer; transition: 0.3s; }
+.role-tabs button.active { background: var(--accent); color: black; font-weight: bold; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
 
 .login-card input { 
-    width: 100%; padding: 1rem; margin-bottom: 1.2rem; border-radius: 10px; 
-    background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: white; box-sizing: border-box; 
-    transition: border 0.3s;
+    width: 100%; padding: 1rem; margin-bottom: 1.2rem; border-radius: 8px; 
+    background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: white; box-sizing: border-box; transition: border 0.3s;
 }
 .login-card input:focus { outline: none; border-color: var(--accent); }
-
 .login-card button:not(.role-tabs button, #toggleAuthMode) { 
     width: 100%; padding: 1.1rem; background: var(--accent); border: none; 
-    color: black; font-weight: bold; border-radius: 10px; cursor: pointer; font-size: 1rem;
+    color: black; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 1rem;
 }
 
 .toggle-auth-msg { margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary); }
@@ -89,71 +75,50 @@ body {
 /* ==========================================
    3. APP NAVIGATION & LAYOUT
    ========================================== */
-nav { 
-    display: flex; justify-content: space-between; align-items: center; 
-    padding: 1rem 2rem; background: var(--sidebar-bg); border-bottom: 1px solid #222; 
-}
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--sidebar-bg); border-bottom: 1px solid #222; }
 .nav-brand { display: flex; align-items: center; }
-.nav-brand h1 { 
-    font-size: 1.3rem; 
-    margin: 0; 
-    background: linear-gradient(to right, #fff, var(--accent)); 
-    -webkit-background-clip: text; 
-    background-clip: text; 
-    -webkit-text-fill-color: transparent; 
-}
+.nav-brand h1 { font-size: 1.5rem; margin: 0; color: var(--accent); }
 
 .app-container { display: flex; height: calc(100vh - 72px); }
 
-.sidebar { 
-    width: 280px; background: var(--sidebar-bg); border-right: 1px solid #222; 
-    padding: 2rem 1.2rem; overflow-y: auto;
-}
-
+.sidebar { width: 280px; background: var(--sidebar-bg); border-right: 1px solid #222; padding: 2rem 1.2rem; overflow-y: auto; }
 .channel-group { margin-bottom: 2.5rem; }
-.channel-group h4 { font-size: 0.75rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 1rem; opacity: 0.6; text-transform: uppercase; }
-
+.channel-group h4 { font-size: 0.75rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 1rem; opacity: 0.7; text-transform: uppercase; }
 .channel-btn { 
-    width: 100%; text-align: left; padding: 0.9rem 1.2rem; border-radius: 12px; 
-    color: var(--text-secondary); background: none; border: none; cursor: pointer;
-    transition: 0.2s; margin-bottom: 6px; font-size: 1rem;
+    width: 100%; text-align: left; padding: 0.9rem 1.2rem; border-radius: 8px; 
+    color: var(--text-secondary); background: none; border: none; cursor: pointer; transition: 0.2s; margin-bottom: 6px; font-size: 1rem; font-family: monospace;
 }
-.channel-btn:hover:not(.locked) { background: rgba(187, 134, 252, 0.1); color: white; }
-.channel-btn.active { background: var(--accent); color: black !important; font-weight: bold; box-shadow: 0 4px 15px rgba(187, 134, 252, 0.2); }
+.channel-btn:hover:not(.locked) { background: rgba(0, 229, 255, 0.1); color: white; }
+.channel-btn.active { background: var(--accent); color: black !important; font-weight: bold; box-shadow: 0 0 10px rgba(0, 229, 255, 0.2); }
 .channel-btn.locked { opacity: 0.15; cursor: not-allowed; filter: grayscale(1); }
 
 /* ==========================================
-   4. FEED & POST BOX (BIG BOXES INTACT)
+   4. FEED & POST BOX (BIG BOXES)
    ========================================== */
 .feed-container { flex: 1; padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
 
-.post-box { 
-    width: 100%; max-width: 850px; margin-bottom: 2.5rem; 
-    background: var(--card-bg); padding: 2rem; border-radius: 18px; border: 1px solid #2a2a2a; 
-}
-.post-box h2 { margin: 0 0 1.2rem 0; font-size: 1.4rem; }
+.post-box { width: 100%; max-width: 850px; margin-bottom: 2.5rem; background: var(--card-bg); padding: 2rem; border-radius: 14px; border: 1px solid #2a2a2a; }
+.post-box h2 { margin: 0 0 1.2rem 0; font-size: 1.4rem; font-family: monospace; color: var(--accent); }
 textarea { 
-    width: 100%; height: 140px; background: #121212; border: 1px solid #333; 
-    border-radius: 12px; color: white; padding: 1.2rem; resize: none; font-size: 1.1rem; box-sizing: border-box;
+    width: 100%; height: 140px; background: #080808; border: 1px solid #333; 
+    border-radius: 8px; color: white; padding: 1.2rem; resize: none; font-size: 1.1rem; box-sizing: border-box; font-family: monospace;
 }
 textarea:focus { outline: none; border-color: var(--accent); }
 .post-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-#submitBtn { background: var(--accent); color: black; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+#submitBtn { background: var(--accent); color: black; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-family: monospace; }
 
 .feed-tabs { display: flex; gap: 1.5rem; width: 100%; max-width: 850px; border-bottom: 1px solid #222; margin-bottom: 1.5rem; }
-.feed-tabs button { background: none; border: none; color: var(--text-secondary); padding: 12px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+.feed-tabs button { background: none; border: none; color: var(--text-secondary); padding: 12px; cursor: pointer; font-weight: bold; font-size: 1rem; font-family: monospace; }
 .feed-tabs button.active { color: var(--accent); border-bottom: 3px solid var(--accent); }
 
 .post-card { 
-    background: var(--card-bg); border: 1px solid #2a2a2a; border-radius: 20px; 
-    padding: 2.5rem; margin-bottom: 1.5rem; width: 100%; max-width: 850px; box-sizing: border-box;
-    transition: transform 0.2s;
+    background: var(--card-bg); border: 1px solid #2a2a2a; border-radius: 14px; 
+    padding: 2.5rem; margin-bottom: 1.5rem; width: 100%; max-width: 850px; box-sizing: border-box; transition: transform 0.2s;
 }
-.post-card:hover { border-color: #444; transform: translateY(-2px); }
+.post-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 229, 255, 0.05); }
 
 .post-content { font-size: 1.25rem; line-height: 1.6; margin-bottom: 1.2rem; }
-
-.post-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem; }
+.post-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem; font-family: monospace; }
 .votes { display: flex; align-items: center; gap: 10px; }
 .votes button { background: rgba(255,255,255,0.05); border: none; color: white; padding: 8px 14px; border-radius: 5px; cursor: pointer; }
 
@@ -161,74 +126,35 @@ textarea:focus { outline: none; border-color: var(--accent); }
    5. MODALS & UTILS
    ========================================== */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: flex; align-items: center; justify-content: center; z-index: 9999; }
-.modal-card { background: var(--card-bg); padding: 3rem; border-radius: 24px; border: 1px solid #333; width: 90%; max-width: 420px; text-align: center; }
+.modal-card { background: var(--card-bg); padding: 3rem; border-radius: 20px; border: 1px solid #333; width: 90%; max-width: 420px; text-align: center; }
 .modal-card h2 { color: var(--accent); margin-top: 0; }
 .modal-input-group { text-align: left; margin-top: 1.5rem; }
-.modal-input-group label { display: block; font-size: 0.8rem; color: var(--accent); margin-bottom: 5px; }
-select { width: 100%; padding: 1rem; background: #000; color: white; border: 1px solid #444; border-radius: 10px; margin-top: 0.5rem; font-size: 1rem; }
-#confirm-join-btn { width: 100%; background: var(--accent); color: black; padding: 1rem; border-radius: 10px; font-weight: bold; border: none; margin-top: 2rem; cursor: pointer; }
+.modal-input-group label { display: block; font-size: 0.8rem; color: var(--accent); margin-bottom: 5px; font-family: monospace; }
+select { width: 100%; padding: 1rem; background: #000; color: white; border: 1px solid #444; border-radius: 8px; margin-top: 0.5rem; font-size: 1rem; }
+#confirm-join-btn { width: 100%; background: var(--accent); color: black; padding: 1rem; border-radius: 8px; font-weight: bold; border: none; margin-top: 2rem; cursor: pointer; font-family: monospace; }
 
 .hidden { display: none !important; }
 .error-text { color: var(--danger); font-size: 0.8rem; margin-top: 10px; display: none; font-weight: bold; }
-#modBadge { background: var(--danger); color: black; font-size: 0.7rem; font-weight: bold; padding: 3px 10px; border-radius: 20px; margin-left: 12px; }
-#logoutBtn { color: var(--danger); background: none; border: 1px solid var(--danger); padding: 5px 15px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+#modBadge { background: var(--danger); color: white; font-size: 0.7rem; font-weight: bold; padding: 3px 10px; border-radius: 6px; margin-left: 12px; font-family: monospace; }
+#logoutBtn { color: var(--danger); background: none; border: 1px solid var(--danger); padding: 5px 15px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-family: monospace; }
 
 @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ==========================================
    6. RESPONSIVE DESIGN (MOBILE FIX)
    ========================================== */
-.mobile-only {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-right: 15px;
-}
+.mobile-only { display: none; background: none; border: none; color: var(--accent); font-size: 1.8rem; cursor: pointer; margin-right: 15px; }
 
 @media (max-width: 768px) {
-    .mobile-only {
-        display: block;
-    }
-    
-    .app-container {
-        position: relative;
-        overflow-x: hidden;
-    }
-    
-    /* Hide sidebar off-screen initially */
+    .mobile-only { display: block; }
+    .app-container { position: relative; overflow-x: hidden; }
     .sidebar {
-        position: absolute;
-        top: 0;
-        left: -100%;
-        height: 100%;
-        width: 280px;
-        z-index: 100;
-        background: rgba(15, 15, 15, 0.98); /* Solid dark so it covers feed cleanly */
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        transition: left 0.3s ease;
-        box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+        position: absolute; top: 0; left: -100%; height: 100%; width: 280px; z-index: 100;
+        background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        transition: left 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.8);
     }
-    
-    /* Class toggled by JS to slide it in */
-    .sidebar.open {
-        left: 0;
-    }
-    
-    .feed-container {
-        padding: 1rem;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    .post-box, .post-card, .feed-tabs {
-        padding: 1.5rem; /* Slightly smaller padding for mobile screens */
-    }
-    
-    textarea {
-        height: 100px;
-    }
+    .sidebar.open { left: 0; border-right: 1px solid var(--accent); }
+    .feed-container { padding: 1rem; width: 100%; box-sizing: border-box; }
+    .post-box, .post-card, .feed-tabs { padding: 1.5rem; }
+    textarea { height: 100px; }
 }
