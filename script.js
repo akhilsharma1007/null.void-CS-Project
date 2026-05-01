@@ -7,6 +7,10 @@ const confessionInput = document.getElementById('confessionInput');
 const channelTitle = document.getElementById('current-channel-title');
 const modBadge = document.getElementById('modBadge');
 
+// Mobile specific
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const sidebar = document.querySelector('.sidebar');
+
 const emailInput = document.getElementById('emailInput');
 const studentPasswordInput = document.getElementById('studentPasswordInput');
 const authBtnStudent = document.getElementById('authBtnStudent');
@@ -43,8 +47,14 @@ let currentChannel = "general";
 let userDept = "";
 let userLevel = "";
 
-// ================= AUTH LOGIC =================
+// ================= MOBILE MENU LOGIC =================
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+    });
+}
 
+// ================= AUTH LOGIC =================
 document.getElementById('tab-student').addEventListener('click', (e) => switchTab(e, 'student-form', 'mod-form'));
 document.getElementById('tab-mod').addEventListener('click', (e) => switchTab(e, 'mod-form', 'student-form'));
 
@@ -102,7 +112,6 @@ function showError(msg) {
 }
 
 // ================= CORE APP FLOW =================
-
 function showApp(role) {
     loginView.classList.add('hidden');
     appView.classList.remove('hidden');
@@ -145,11 +154,15 @@ channelBtns.forEach(btn => {
         currentChannel = btn.dataset.channel;
         channelTitle.innerText = btn.innerText;
         renderPosts("new");
+        
+        // Auto-close sidebar on mobile after clicking a channel
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('open');
+        }
     });
 });
 
 // ================= POSTING & RENDER =================
-
 function censorText(text) {
     let t = text;
     PROFANITY_LIST.forEach(w => {
@@ -213,7 +226,6 @@ function renderPosts(sortType) {
 }
 
 // ================= COMPLAINT LOGIC =================
-
 function submitComplaint() {
     const postId = complaintPostIdInput.value;
     const text = complaintTextInput.value.trim();
