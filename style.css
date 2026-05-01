@@ -41,7 +41,7 @@ body {
 #login-view { 
     height: 100vh; display: flex; align-items: center; justify-content: center;
     background: linear-gradient(rgba(12, 12, 12, 0.75), rgba(12, 12, 12, 0.85)), 
-                url('sau-campus-new.jpeg');
+                url('sau-campus-new.jpg');
     background-size: cover; background-position: center; position: relative; z-index: 10;
 }
 
