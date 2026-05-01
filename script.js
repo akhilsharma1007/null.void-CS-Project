@@ -7,7 +7,6 @@ const confessionInput = document.getElementById('confessionInput');
 const channelTitle = document.getElementById('current-channel-title');
 const modBadge = document.getElementById('modBadge');
 
-// Mobile specific
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const sidebar = document.querySelector('.sidebar');
 
@@ -74,27 +73,28 @@ function clearInputs() {
 
 toggleAuthMode.addEventListener('click', () => {
     isSignUpMode = !isSignUpMode;
-    document.getElementById('studentFormTitle').innerText = isSignUpMode ? "Create Student Account" : "Student Login";
+    document.getElementById('studentFormTitle').innerText = isSignUpMode ? "Initialize Profile" : "Student Login";
     authBtnStudent.innerText = isSignUpMode ? "Sign Up & Enter" : "Log In";
+    document.getElementById('toggleText').innerText = isSignUpMode ? "Already in the void?" : "New to the void?";
     toggleAuthMode.innerText = isSignUpMode ? "Log in" : "Create an account";
 });
 
 authBtnStudent.addEventListener('click', () => {
     const email = emailInput.value.trim().toLowerCase();
     const pass = studentPasswordInput.value;
-    if (!email.endsWith('.in')) return showError("Use @sau.in email.");
-    if (email === MOD_EMAIL) return showError("Use Mod tab for admin.");
+    if (!email.endsWith('.in')) return showError("Domain must be @sau.in.");
+    if (email === MOD_EMAIL) return showError("Root access requires Admin Panel.");
     if (pass.length < 6) return showError("Password too short.");
 
     if (isSignUpMode) {
-        if (registeredUsers.find(u => u.email === email)) return showError("Account exists.");
+        if (registeredUsers.find(u => u.email === email)) return showError("User exists.");
         registeredUsers.push({ email, pass });
         showApp("student");
     } else {
         const isValid = (email === DUMMY_STUDENT_EMAIL && pass === DUMMY_STUDENT_PASSWORD) || 
                         registeredUsers.find(u => u.email === email && u.pass === pass);
         if (isValid) showApp("student");
-        else showError("Invalid credentials.");
+        else showError("Authentication failed.");
     }
 });
 
@@ -148,17 +148,14 @@ function unlockAndRender() {
 
 channelBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        if (btn.classList.contains('locked')) return alert("Access Denied.");
+        if (btn.classList.contains('locked')) return alert("Access Denied: Missing permissions.");
         channelBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentChannel = btn.dataset.channel;
         channelTitle.innerText = btn.innerText;
         renderPosts("new");
         
-        // Auto-close sidebar on mobile after clicking a channel
-        if (window.innerWidth <= 768) {
-            sidebar.classList.remove('open');
-        }
+        if (window.innerWidth <= 768) sidebar.classList.remove('open');
     });
 });
 
@@ -201,7 +198,7 @@ function renderPosts(sortType) {
     else filtered.sort((a,b) => b.timestamp - a.timestamp);
 
     if (filtered.length === 0) {
-        feed.innerHTML = `<p style="text-align:center; color:#666; margin-top: 50px;">No confessions in ${currentChannel} yet.</p>`;
+        feed.innerHTML = `<p style="text-align:center; color:#555; margin-top: 50px; font-family: monospace;">[null data returned]</p>`;
         return;
     }
 
@@ -210,7 +207,7 @@ function renderPosts(sortType) {
         el.className = 'post-card';
         el.innerHTML = `
             <div class="post-content">
-                <strong style="color:var(--accent);">ID: ${post.id}</strong><br>
+                <strong style="color:var(--accent); font-family:monospace;">ID: ${post.id}</strong><br>
                 ${post.text}
             </div>
             <div class="post-footer">
@@ -229,25 +226,25 @@ function renderPosts(sortType) {
 function submitComplaint() {
     const postId = complaintPostIdInput.value;
     const text = complaintTextInput.value.trim();
-    if (!postId || !text) return alert("Enter Post ID and text.");
+    if (!postId || !text) return alert("Error: Missing parameters.");
 
     let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
     complaints.push({ postId, text, date: new Date().toLocaleDateString() });
     localStorage.setItem("complaints", JSON.stringify(complaints));
     complaintPostIdInput.value = ""; complaintTextInput.value = "";
-    alert("Complaint submitted ✅");
+    alert("Report logged in system.");
 }
 
 function renderComplaints() {
     const container = document.getElementById("complaintList");
     if (!container) return;
     let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
-    container.innerHTML = complaints.length === 0 ? "<p style='color:gray;'>No complaints yet</p>" : "";
+    container.innerHTML = complaints.length === 0 ? "<p style='color:#555; font-family:monospace;'>[system logs empty]</p>" : "";
     complaints.forEach(c => {
         const el = document.createElement("div");
         el.className = "post-card";
         el.style.borderLeft = "4px solid var(--danger)";
-        el.innerHTML = `<strong style="color:var(--danger);">Post ID: ${c.postId}</strong><p>${c.text}</p><small>${c.date}</small>`;
+        el.innerHTML = `<strong style="color:var(--danger); font-family:monospace;">Target ID: ${c.postId}</strong><p>${c.text}</p><small style="font-family:monospace;">Logged: ${c.date}</small>`;
         container.appendChild(el);
     });
 }
